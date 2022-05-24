@@ -23,6 +23,7 @@
         android:layoutAnimation="@anim/rv_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/characterSearch"/>
+        android:layout_below="@id/characterSearch"
+        tools:listitem="@layout/character_item"/>
 
 </RelativeLayout>
