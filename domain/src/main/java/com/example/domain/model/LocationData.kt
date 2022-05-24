@@ -5,6 +5,5 @@ data class LocationData(
     val dimension: String,
     val id: Int,
     val name: String,
-    val residents: List<Any>,
     val type: String,
 )
