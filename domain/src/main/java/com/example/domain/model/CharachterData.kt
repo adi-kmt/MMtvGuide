@@ -7,5 +7,5 @@ data class CharachterData(
     val name: String,
     val species: String,
     val status: String,
-    val type: String,
+    val type: String
 )

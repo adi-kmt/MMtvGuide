@@ -2,13 +2,14 @@ package com.example.mmtvguide.characters.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.CharachterData
 import com.example.mmtvguide.databinding.CharacterItemBinding
 
-class CharacterListAdapter:ListAdapter<CharachterData, CharacterListAdapter.CharacterListHolder>(DiffCall()) {
+class CharacterListAdapter:PagingDataAdapter<CharachterData, CharacterListAdapter.CharacterListHolder>(DiffCall()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListHolder {
         val binding = CharacterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,7 +18,9 @@ class CharacterListAdapter:ListAdapter<CharachterData, CharacterListAdapter.Char
 
     override fun onBindViewHolder(holder: CharacterListHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.bind(currentItem)
+        currentItem?.let {item ->
+            holder.bind(item)
+        }
     }
 
 

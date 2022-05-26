@@ -2,6 +2,7 @@ package com.example.mmtvguide.locations.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,7 @@ import com.example.domain.model.LocationData
 import com.example.mmtvguide.characters.adapter.CharacterListAdapter
 import com.example.mmtvguide.databinding.LocationItemBinding
 
-class LocationListadapter:ListAdapter<LocationData, LocationListadapter.LocationListHolder>(DiffCall()) {
+class LocationListadapter:PagingDataAdapter<LocationData, LocationListadapter.LocationListHolder>(DiffCall()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationListHolder {
         val binding = LocationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +20,9 @@ class LocationListadapter:ListAdapter<LocationData, LocationListadapter.Location
 
     override fun onBindViewHolder(holder: LocationListHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.bind(currentItem)
+        currentItem?.let {item ->
+            holder.bind(item)
+        }
     }
 
 

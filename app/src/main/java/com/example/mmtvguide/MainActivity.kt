@@ -2,7 +2,7 @@ package com.example.mmtvguide
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import com.example.mmtvguide.common_adapters.ViewPagerAdapter
 import com.example.mmtvguide.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

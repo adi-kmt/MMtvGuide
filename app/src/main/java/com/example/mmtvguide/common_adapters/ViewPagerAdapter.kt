@@ -1,4 +1,4 @@
-package com.example.mmtvguide
+package com.example.mmtvguide.common_adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
