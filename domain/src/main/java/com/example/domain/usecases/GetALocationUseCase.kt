@@ -9,5 +9,5 @@ class GetALocationUseCase(
     private val repository: MainRepository
 ) {
     suspend fun getALocation(name:String): NetworkState<LocationData> =
-        repository.getLocation(name = name)
+        TODO("Yet to be implemented")
 }

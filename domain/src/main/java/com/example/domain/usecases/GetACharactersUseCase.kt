@@ -8,5 +8,5 @@ class GetACharactersUseCase(
     private val repository: MainRepository
 ) {
     suspend fun getACharacter(name:String):NetworkState<CharachterData> =
-        repository.getCharacter(name = name)
+        TODO("Yet to be implemented")
 }
