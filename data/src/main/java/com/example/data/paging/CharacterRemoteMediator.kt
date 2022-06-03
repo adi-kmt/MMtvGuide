@@ -76,13 +76,15 @@ class CharacterRemoteMediator
                     response.body()?.results?.let { characterDao.insertALLCharacters(it) }
                     characterRemoteKeysDao.addAllRemoteKeys(keys)
                 }
-
-            //            return endOfPaginationReached?.let { MediatorResult.Success(endOfPaginationReached = it)}
-            return MediatorResult.Success(endOfPaginationReached!!) //TODO("To be fixed")
-            }catch (e:HttpException){
-            return MediatorResult.Error(e)
-        }catch (e:IOException){
-            return MediatorResult.Error(e)
+            return if (endOfPaginationReached != null && endOfPaginationReached == false){
+                MediatorResult.Success(endOfPaginationReached!!)
+            }else{
+                MediatorResult.Success(true)
+            }
+            }catch (e: HttpException){
+            return MediatorResult.Error(Throwable(e.localizedMessage))
+        }catch (e: IOException){
+            return MediatorResult.Error(Throwable(e.localizedMessage))
         }
         }
 

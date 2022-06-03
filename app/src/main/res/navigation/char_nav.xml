@@ -22,5 +22,9 @@
         android:id="@+id/characterDetailFragment"
         android:name="com.example.mmtvguide.characters.ui.CharacterDetailFragment"
         android:label="fragment_character_detail"
-        tools:layout="@layout/fragment_character_detail" />
+        tools:layout="@layout/fragment_character_detail" >
+        <argument
+            android:name="charachterData"
+            app:argType="com.example.data.datamodels.character.ParcelizedCharachterData" />
+    </fragment>
 </navigation>

@@ -20,10 +20,6 @@ object InjectApi {
     @Provides
     @Singleton
     fun providesApi():ApiService {
-//        val contentType = "application/json".toMediaType()
-//        val json = Json {
-//            ignoreUnknownKeys = true
-//        }
         return Retrofit.Builder()
             .baseUrl(ApiService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

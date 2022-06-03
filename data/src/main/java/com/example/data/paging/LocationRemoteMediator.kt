@@ -75,13 +75,15 @@ class LocationRemoteMediator
             response.body()?.results?.let { locationDao.insertALLLocations(it) }
             locationRemoteKeysDao.addAllRemoteKeys(keys)
         }
-
-        //            return endOfPaginationReached?.let { MediatorResult.Success(endOfPaginationReached = it)}
-        return MediatorResult.Success(endOfPaginationReached!!) //TODO("To be fixed")
+        return if (endOfPaginationReached != null && endOfPaginationReached == false){
+            MediatorResult.Success(endOfPaginationReached!!)
+        }else{
+            MediatorResult.Success(true)
+        }
     }catch (e: HttpException){
-        return MediatorResult.Error(e)
+        return MediatorResult.Error(Throwable(e.localizedMessage))
     }catch (e: IOException){
-        return MediatorResult.Error(e)
+        return MediatorResult.Error(Throwable(e.localizedMessage))
     }
 }
 

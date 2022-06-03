@@ -22,5 +22,9 @@
         android:id="@+id/locationDetailFragment"
         android:name="com.example.mmtvguide.locations.ui.LocationDetailFragment"
         android:label="fragment_location_detail"
-        tools:layout="@layout/fragment_location_detail" />
+        tools:layout="@layout/fragment_location_detail" >
+        <argument
+            android:name="locationData"
+            app:argType="com.example.data.datamodels.location.ParcelizedLocationData" />
+    </fragment>
 </navigation>

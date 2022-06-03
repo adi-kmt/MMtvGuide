@@ -6,4 +6,5 @@ data class LocationData(
     val id: Int,
     val name: String,
     val type: String,
+    val url: String
 )

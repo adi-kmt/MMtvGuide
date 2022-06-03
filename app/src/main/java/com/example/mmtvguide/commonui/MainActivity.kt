@@ -1,11 +1,13 @@
-package com.example.mmtvguide
+package com.example.mmtvguide.commonui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mmtvguide.common_adapters.ViewPagerAdapter
 import com.example.mmtvguide.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

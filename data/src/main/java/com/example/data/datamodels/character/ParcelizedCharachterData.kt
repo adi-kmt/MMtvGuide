@@ -1,6 +1,10 @@
-package com.example.domain.model
+package com.example.data.datamodels.character
 
-data class CharachterData(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class ParcelizedCharachterData(
     val gender: String,
     val id: Int,
     val image: String,
@@ -9,4 +13,4 @@ data class CharachterData(
     val status: String,
     val type: String,
     val url: String
-)
+):Parcelable

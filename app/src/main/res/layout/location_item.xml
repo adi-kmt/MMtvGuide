@@ -14,14 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/locationImage"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_height="100dp"
-            android:scaleType="fitXY"
-            tools:src="@drawable/ic_launcher_background"/>
-
         <TextView
             android:id="@+id/locationText"
             android:layout_marginTop="5dp"

@@ -4,16 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.domain.model.CharachterData
+import com.example.mmtvguide.common_adapters.ItemClickCallback
 import com.example.mmtvguide.databinding.CharacterItemBinding
 
-class CharacterListAdapter:PagingDataAdapter<CharachterData, CharacterListAdapter.CharacterListHolder>(DiffCall()) {
+class CharacterListAdapter(
+    private val itemClickCallback: ItemClickCallback<CharachterData>
+):PagingDataAdapter<CharachterData, CharacterListAdapter.CharacterListHolder>(DiffCall()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListHolder {
         val binding = CharacterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CharacterListHolder(binding)
+        return CharacterListHolder(binding, itemClickCallback)
     }
 
     override fun onBindViewHolder(holder: CharacterListHolder, position: Int) {
@@ -24,11 +27,19 @@ class CharacterListAdapter:PagingDataAdapter<CharachterData, CharacterListAdapte
     }
 
 
-    class CharacterListHolder(private val binding: CharacterItemBinding):RecyclerView.ViewHolder(binding.root){
+    class CharacterListHolder(private val binding: CharacterItemBinding, private val itemClickCallback: ItemClickCallback<CharachterData>):RecyclerView.ViewHolder(binding.root){
+
         fun bind(charachterData: CharachterData){
             binding.apply {
                 //bind image
+                Glide.with(itemView)
+                    .load(charachterData.image)
+                    .centerCrop()
+                    .into(characterImage)
                 characterText.text = charachterData.name
+            }
+            itemView.setOnClickListener {
+                itemClickCallback.onItemClick(charachterData)
             }
         }
     }

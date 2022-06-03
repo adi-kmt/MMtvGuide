@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".commonui.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/MainTabLayout"
@@ -15,7 +15,17 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/MainTabLayout"/>
+        android:layout_below="@id/MainTabLayout">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_nav" />
 
 
 </RelativeLayout>

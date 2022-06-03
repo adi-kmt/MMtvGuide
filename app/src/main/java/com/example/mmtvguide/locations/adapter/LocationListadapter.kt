@@ -2,16 +2,19 @@ package com.example.mmtvguide.locations.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.domain.model.CharachterData
 import com.example.domain.model.LocationData
 import com.example.mmtvguide.characters.adapter.CharacterListAdapter
 import com.example.mmtvguide.databinding.LocationItemBinding
 
-class LocationListadapter:PagingDataAdapter<LocationData, LocationListadapter.LocationListHolder>(DiffCall()) {
+class LocationListadapter
+    :PagingDataAdapter<LocationData, LocationListadapter.LocationListHolder>(DiffCall()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationListHolder {
         val binding = LocationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,9 +30,17 @@ class LocationListadapter:PagingDataAdapter<LocationData, LocationListadapter.Lo
 
 
     class LocationListHolder(private val binding: LocationItemBinding):RecyclerView.ViewHolder(binding.root){
+
+//        init {
+//            binding.root.setOnClickListener {
+//                val position = bindingAdapterPosition
+//                val item = getPosition()
+//            }
+//        }
+
+
         fun bind(locationData: LocationData){
             binding.apply {
-                // bind image
                 locationText.text = locationData.name
             }
         }
@@ -41,5 +52,9 @@ class LocationListadapter:PagingDataAdapter<LocationData, LocationListadapter.Lo
 
         override fun areContentsTheSame(oldItem: LocationData, newItem: LocationData): Boolean =
             oldItem == newItem
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(locationData: LocationData)
     }
 }

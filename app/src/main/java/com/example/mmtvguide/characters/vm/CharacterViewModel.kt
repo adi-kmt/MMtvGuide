@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel
-    @Inject constructor(private val getAllCharactersUseCase: GetAllCharactersUseCase):ViewModel() {
+@Inject constructor(private val getAllCharactersUseCase: GetAllCharactersUseCase):ViewModel() {
 
         suspend fun getCharacters(): Flow<PagingData<CharachterData>> =
             getAllCharactersUseCase.getAllCharacters()
