@@ -5,14 +5,18 @@
       <map>
         <entry key="app/src/main/res/drawable/rounded_textview.xml" value="0.24" />
         <entry key="app/src/main/res/drawable/textview.xml" value="0.24" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.28694900605012963" />
+        <entry key="app/src/main/res/layout-land/character_item.xml" value="0.21866897147796024" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/character_item.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/error_state.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/fragment_character_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/fragment_location_detail.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/fragment_location_list.xml" value="0.3229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_view_pager.xml" value="0.3390625" />
         <entry key="app/src/main/res/layout/location_item.xml" value="0.34375" />
+        <entry key="app/src/main/res/layout/location_item_header.xml" value="0.3458333333333333" />
       </map>
     </option>
   </component>

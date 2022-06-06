@@ -7,14 +7,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.mmtvguide.characters.ui.CharacterListFragment
 import com.example.mmtvguide.locations.ui.LocationListFragment
 
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):FragmentStateAdapter(fragmentManager, lifecycle) {
+class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
+    :FragmentStateAdapter(fragmentManager, lifecycle) {
+
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> CharacterListFragment()
-            1 -> LocationListFragment()
-            else -> CharacterListFragment()
+            else -> LocationListFragment()
         }
     }
 }

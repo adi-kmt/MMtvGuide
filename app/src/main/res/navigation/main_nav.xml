@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/char_nav">
+    app:startDestination="@id/viewPagerFragment">
 
-    <include app:graph="@navigation/char_nav" />
-    <include app:graph="@navigation/loc_nav" />
+<!--    <include app:graph="@navigation/char_nav" />-->
+<!--    <include app:graph="@navigation/loc_nav" />-->
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.example.mmtvguide.commonui.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
+<!--        <action-->
+<!--            android:id="@+id/action_viewPagerFragment_to_char_nav"-->
+<!--            app:destination="@id/char_nav" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_viewPagerFragment_to_loc_nav"-->
+<!--            app:destination="@id/loc_nav" />-->
+
+        <action
+            android:id="@+id/action_viewPagerFragment_to_characterDetailFragment2"
+            app:destination="@id/characterDetailFragment2"
+            app:enterAnim="@anim/to_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/to_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment2"
+        android:name="com.example.mmtvguide.characters.ui.CharacterDetailFragment"
+        android:label="fragment_character_detail"
+        tools:layout="@layout/fragment_character_detail">
+        <argument
+            android:name="charachterData"
+            app:argType="com.example.data.datamodels.character.ParcelizedCharachterData" />
+    </fragment>
 </navigation>

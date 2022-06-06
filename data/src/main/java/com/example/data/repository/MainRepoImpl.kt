@@ -49,4 +49,19 @@ class MainRepoImpl
         }
         }
     }
+
+    @OptIn(ExperimentalPagingApi::class)
+    override suspend fun getCharacter(query:String):Flow<PagingData<CharachterData>>{
+        return Pager(
+            config = PagingConfig(20),
+            remoteMediator = CharacterRemoteMediator(apiService, mainDB),
+            pagingSourceFactory = {mainDB.characterDao().getPagedCharacters()}
+        ).flow.map {pagedCharacter ->
+            pagedCharacter.map {character ->
+                character.toCharachterData()
+            }.filter {
+                it.name == query
+            }
+        }
+    }
 }

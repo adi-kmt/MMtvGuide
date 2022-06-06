@@ -11,6 +11,11 @@ class GetAllCharactersUseCase
     @Inject constructor(
     private val repository: MainRepository
 ) {
-    suspend fun getAllCharacters(): Flow<PagingData<CharachterData>> =
-        repository.getAllCharacters()
+    suspend fun getAllCharacters(query:String?): Flow<PagingData<CharachterData>> {
+        if (query != null) {
+            return repository.getCharacter(query)
+        }else{
+            return repository.getAllCharacters()
+        }
+    }
 }

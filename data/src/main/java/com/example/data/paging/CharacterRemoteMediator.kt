@@ -66,26 +66,26 @@ class CharacterRemoteMediator
                     characterRemoteKeysDao.deleteAllRemoteKeys()
                 }
 
-                val keys: List<CharacterRemoteKeys> = response.body()?.results?.map {
-                    CharacterRemoteKeys(
-                        id = it.id,
-                        prevPage = prevPage,
-                        nextPage = nextPage
-                    )
-                } ?: return@withTransaction
-                    response.body()?.results?.let { characterDao.insertALLCharacters(it) }
-                    characterRemoteKeysDao.addAllRemoteKeys(keys)
-                }
-            return if (endOfPaginationReached != null && endOfPaginationReached == false){
-                MediatorResult.Success(endOfPaginationReached!!)
-            }else{
-                MediatorResult.Success(true)
+            val keys: List<CharacterRemoteKeys> = response.body()?.results?.map {
+                CharacterRemoteKeys(
+                    id = it.id,
+                    prevPage = prevPage,
+                    nextPage = nextPage
+                )
+            } ?: return@withTransaction
+                response.body()?.results?.let { characterDao.insertALLCharacters(it) }
+                characterRemoteKeysDao.addAllRemoteKeys(keys)
             }
-            }catch (e: HttpException){
-            return MediatorResult.Error(Throwable(e.localizedMessage))
-        }catch (e: IOException){
-            return MediatorResult.Error(Throwable(e.localizedMessage))
+        return if (endOfPaginationReached != null && endOfPaginationReached == false){
+            MediatorResult.Success(endOfPaginationReached!!)
+        }else{
+            MediatorResult.Success(true)
         }
+        }catch (e: HttpException){
+        return MediatorResult.Error(Throwable(e.localizedMessage))
+    }catch (e: IOException){
+        return MediatorResult.Error(Throwable(e.localizedMessage))
+    }
         }
 
 

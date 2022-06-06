@@ -7,6 +7,9 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
 }
+kapt {
+    correctErrorTypes = true
+}
 
 android {
     compileSdk 32
@@ -72,6 +75,12 @@ dependencies {
 
     // KotlinX Serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
+
+    //Epoxy
+    implementation 'com.airbnb.android:epoxy:5.0.0-beta05'
+    kapt "com.airbnb.android:epoxy-processor:5.0.0-beta05"
+    implementation 'com.airbnb.android:epoxy-paging:5.0.0-beta05'
+    implementation 'com.airbnb.android:epoxy-paging3:5.0.0-beta05'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

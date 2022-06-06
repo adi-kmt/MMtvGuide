@@ -53,8 +53,4 @@ class LocationListadapter
         override fun areContentsTheSame(oldItem: LocationData, newItem: LocationData): Boolean =
             oldItem == newItem
     }
-
-    interface OnItemClickListener {
-        fun onItemClick(locationData: LocationData)
-    }
 }
