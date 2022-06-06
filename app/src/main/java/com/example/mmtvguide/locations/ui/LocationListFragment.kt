@@ -2,6 +2,7 @@ package com.example.mmtvguide.locations.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,7 @@ class LocationListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val locationListController = LocationListController(requireContext())
+        val locationListController = LocationListController()
 
 //        locationListAdapter = LocationListadapter()
 
@@ -64,6 +65,7 @@ class LocationListFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 locationViewModel.getLocation().collectLatest {locationData ->
 //                    locationListAdapter.submitData(locationData)
+                    Log.d("Location TAG", locationData.toString())
                     locationListController.submitData(locationData)
                 }
             }

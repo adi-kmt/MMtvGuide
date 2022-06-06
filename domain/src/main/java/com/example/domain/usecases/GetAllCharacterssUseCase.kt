@@ -7,15 +7,13 @@ import com.example.domain.repository.MainRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+//Remove paging data, instead extract to list/flow
+
 class GetAllCharactersUseCase
-    @Inject constructor(
+@Inject constructor(
     private val repository: MainRepository
 ) {
-    suspend fun getAllCharacters(query:String?): Flow<PagingData<CharachterData>> {
-        if (query != null) {
-            return repository.getCharacter(query)
-        }else{
-            return repository.getAllCharacters()
-        }
+    suspend fun getAllCharacters(query: String?): Flow<PagingData<CharachterData>> {
+        return repository.getAllCharacters(query)
     }
 }

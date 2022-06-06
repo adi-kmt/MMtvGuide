@@ -14,7 +14,6 @@ import com.example.mmtvguide.databinding.LocationItemHeaderBinding
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 class LocationListController(
-    val context: Context
 ): PagingDataEpoxyController<LocationData>() {
 
 

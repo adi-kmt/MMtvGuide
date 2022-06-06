@@ -21,15 +21,10 @@ interface ApiService {
         @Query("page") page:Int
     ):Response<LocationResponseModel>
 
-    @GET("character")
-    suspend fun getPagedCharacterParticular(
-        @Query("page") page:Int,
-        @Query("name") chName:String
-    ):Response<CharacterResponseModel>
+//    @GET("character")
+//    suspend fun getPagedCharacterParticular(
+//        @Query("page") page:Int,
+//        @Query("name") chName:String
+//    ):Response<CharacterResponseModel>
 
-    @GET("location")
-    suspend fun getPagedLocationParticular(
-        @Query("page") page:Int,
-        @Query("name") locName:String
-    ):Response<LocationResponseModel>
 }

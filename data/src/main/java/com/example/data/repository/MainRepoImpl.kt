@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import android.util.Log
 import androidx.paging.*
 import com.example.data.api.ApiService
 import com.example.data.datamodels.mappers.toCharachterData
@@ -16,51 +17,37 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MainRepoImpl
-    @Inject constructor(
-        private val apiService: ApiService,
-        private val mainDB: MainDB
-    )
-    :MainRepository {
+@Inject constructor(
+    private val apiService: ApiService,
+    private val mainDB: MainDB
+) : MainRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getAllCharacters(): Flow<PagingData<CharachterData>> {
+    override suspend fun getAllCharacters(characterName: String?): Flow<PagingData<CharachterData>> {
+//        Log.d("Repo TAG", characterName.toString())
+
         return Pager(
             config = PagingConfig(20),
             remoteMediator = CharacterRemoteMediator(apiService, mainDB),
-            pagingSourceFactory = {mainDB.characterDao().getPagedCharacters()}
-        ).flow.map {pagedCharacter ->
-        pagedCharacter.map {character ->
-            character.toCharachterData()
-        }
+            pagingSourceFactory = { mainDB.characterDao().getPagedCharacters(characterName) }
+        ).flow.map { pagedCharacter ->
+            pagedCharacter.map { character ->
+                character.toCharachterData()
+            }
         }
     }
 
 
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getAllLocations(): Flow<PagingData<LocationData>> {
-        val pagingSourceFactory = {mainDB.locationDao().getPagedLocations()}
+        val pagingSourceFactory = { mainDB.locationDao().getPagedLocations() }
         return Pager(
             config = PagingConfig(20),
             remoteMediator = LocationRemoteMediator(apiService, mainDB),
             pagingSourceFactory = pagingSourceFactory
-        ).flow.map {pagedLocation ->
-        pagedLocation.map {location->
-            location.toLocationData()
-        }
-        }
-    }
-
-    @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getCharacter(query:String):Flow<PagingData<CharachterData>>{
-        return Pager(
-            config = PagingConfig(20),
-            remoteMediator = CharacterRemoteMediator(apiService, mainDB),
-            pagingSourceFactory = {mainDB.characterDao().getPagedCharacters()}
-        ).flow.map {pagedCharacter ->
-            pagedCharacter.map {character ->
-                character.toCharachterData()
-            }.filter {
-                it.name == query
+        ).flow.map { pagedLocation ->
+            pagedLocation.map { location ->
+                location.toLocationData()
             }
         }
     }

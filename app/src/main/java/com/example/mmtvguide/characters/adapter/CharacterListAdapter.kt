@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domain.model.CharachterData
@@ -32,10 +33,10 @@ class CharacterListAdapter(
         fun bind(charachterData: CharachterData){
             binding.apply {
                 //bind image
-                Glide.with(itemView)
-                    .load(charachterData.image)
-                    .centerCrop()
-                    .into(characterImage)
+//                Glide.with(itemView)
+//                    .load(charachterData.image)
+//                    .centerCrop()
+//                    .into(characterImage)
                 characterText.text = charachterData.name
             }
             itemView.setOnClickListener {
@@ -45,7 +46,7 @@ class CharacterListAdapter(
     }
     class DiffCall:DiffUtil.ItemCallback<CharachterData>() {
         override fun areItemsTheSame(oldItem: CharachterData, newItem: CharachterData): Boolean =
-            oldItem.name == newItem.name
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: CharachterData, newItem: CharachterData): Boolean =
             oldItem == newItem

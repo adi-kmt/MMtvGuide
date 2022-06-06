@@ -9,10 +9,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/characterRecyclerView"
-        android:layoutAnimation="@anim/rv_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/character_item"/>
 
-
+<!--    android:layoutAnimation="@anim/rv_layout"-->
 </RelativeLayout>
