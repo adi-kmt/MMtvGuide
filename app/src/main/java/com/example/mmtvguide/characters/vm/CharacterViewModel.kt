@@ -1,5 +1,6 @@
 package com.example.mmtvguide.characters.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -10,6 +11,7 @@ import com.example.domain.usecases.GetAllCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,17 +21,43 @@ class CharacterViewModel
     private val _queryString: MutableStateFlow<String> = MutableStateFlow("")
     val queryString: StateFlow<String> get() = _queryString
 
-    suspend fun getCharacters(): Flow<PagingData<CharachterData>> =
-        getAllCharactersUseCase.getAllCharacters(null)
+    private val _listCharacters:MutableStateFlow<PagingData<CharachterData>> = MutableStateFlow(
+        PagingData.empty())
+    val listCharacters:StateFlow<PagingData<CharachterData>> get() = _listCharacters
+
+    init {
+        viewModelScope.launch {
+            if (queryString.value == ""){
+                getAllCharactersUseCase.getAllCharacters(null).collect{
+                    _listCharacters.value = it
+                }
+            }else{
+                getAllCharactersUseCase.getAllCharacters(queryString.value).collect{
+                    _listCharacters.value = it
+                    Log.e("Filtered", _listCharacters.value.toString())
+                }
+            }
+        }
+
+    }
+
+//    suspend fun getCharacters(): Flow<PagingData<CharachterData>> =
+//        getAllCharactersUseCase.getAllCharacters(null)
 
     fun setQuery(query: String) {
         _queryString.value = query
     }
 
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun getFilteredCharacters(): Flow<PagingData<CharachterData>> =
-        queryString.flatMapLatest { query ->
-            return@flatMapLatest getAllCharactersUseCase.getAllCharacters(query)
-        }
-}
+//    @OptIn(ExperimentalCoroutinesApi::class)
+//    suspend fun getFilteredCharacters(): Flow<PagingData<CharachterData>> =
+//        queryString.flatMapLatest { query ->
+//            return@flatMapLatest getAllCharactersUseCase.getAllCharacters(query)
+//        }
+
+//    suspend fun getFilteredCharacters() {
+//        getAllCharactersUseCase.getAllCharacters(queryString.value).collect{
+//            _listCharacters.value = it
+//        }
+//        }
+    }

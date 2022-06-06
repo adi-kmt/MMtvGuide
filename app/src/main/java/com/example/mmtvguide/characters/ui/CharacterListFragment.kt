@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -61,58 +62,71 @@ class CharacterListFragment : Fragment(), ItemClickCallback<CharachterData> {
                 )
         }
 
+//        lifecycleScope.launchWhenCreated {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                charachterViewModel.getCharacters().collectLatest { charachterData ->
+//                    characterListAdapter.submitData(charachterData)
+//                }
+//            }
+//        }
+
         lifecycleScope.launchWhenCreated {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                charachterViewModel.getCharacters().collectLatest { charachterData ->
+//                charachterViewModel.getCharacters()
+                charachterViewModel.listCharacters.collectLatest { charachterData ->
                     characterListAdapter.submitData(charachterData)
                 }
             }
         }
+
         setHasOptionsMenu(true)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                if (charachterViewModel.queryString.value != ""){
-                    charachterViewModel.getFilteredCharacters().collectLatest {filteredData ->
-                        characterListAdapter.retry()
-                        characterListAdapter.submitData(filteredData)
-                    }
-                }
+//        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                if (charachterViewModel.queryString.value != "") {
+////                    charachterViewModel.getFilteredCharacters().collectLatest { filteredData ->
+////                        characterListAdapter.retry()
+////                        characterListAdapter.submitData(filteredData)
+//                    charachterViewModel.getFilteredCharacters()
+//                    charachterViewModel.listCharacters.collectLatest { charachterData ->
+//                        characterListAdapter.submitData(charachterData)
+//                    }
+//                }
+//            }
+//        }
+    }
+
+override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    super.onCreateOptionsMenu(menu, inflater)
+    inflater.inflate(R.menu.menu_item, menu)
+
+    val search = menu.findItem(R.id.search)
+    val searchView = search.actionView as SearchView
+    searchView.queryHint = "Search Character"
+    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            Toast.makeText(requireContext(), query, Toast.LENGTH_LONG).show()
+            query?.let { notNullQuery ->
+                charachterViewModel.setQuery(query = notNullQuery)
             }
+            return true
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_item, menu)
-
-        val search = menu.findItem(R.id.search)
-        val searchView = search.actionView as SearchView
-        searchView.queryHint = "Search Character"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                Toast.makeText(requireContext(), query, Toast.LENGTH_LONG).show()
-                query?.let { notNullQuery ->
-                    charachterViewModel.setQuery(query = notNullQuery)
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
-        })
-    }
+        override fun onQueryTextChange(newText: String?): Boolean {
+            return true
+        }
+    })
+}
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+}
 
-    override fun onItemClick(Data: CharachterData) {
-        val action =
-            ViewPagerFragmentDirections.actionViewPagerFragmentToCharacterDetailFragment2(Data.toParcelizedCharachterData())
-        findNavController().navigate(action)
-    }
+override fun onItemClick(Data: CharachterData) {
+    val action =
+        ViewPagerFragmentDirections.actionViewPagerFragmentToCharacterDetailFragment2(Data.toParcelizedCharachterData())
+    findNavController().navigate(action)
+}
 }
